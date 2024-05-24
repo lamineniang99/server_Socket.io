@@ -9,7 +9,7 @@ const io = new Server({
 });
 
 const tcpClient = new net.Socket();
-const TCP_SERVER_HOST = "51.77.212.1666";
+const TCP_SERVER_HOST = "51.77.212.166";
 const TCP_SERVER_PORT = 5000;
 
 // Tentative de connexion au serveur TCP et gestion des reconnexions
@@ -50,7 +50,7 @@ io.on('connection', (socket) => {
 
     socket.on('join_room', (data) => {
         if (data && data.imei) {
-            const roomName = `imei_${data.imei}`;
+            const roomName = `${data.imei}`;
             socket.join(roomName);
             console.log(`Client ${socket.id} joined room: ${roomName}`);
         }
