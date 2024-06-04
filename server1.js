@@ -44,6 +44,13 @@ io.on('connection', (socket) => {
     console.log('Un client s\'est connecté');
 
     socket.on('data', (data) => {
+        if (!data.perimetre) {
+            if (tcpClient.writable) {
+                tcpClient.write(dataToSend);
+            } else {
+                console.log("Connexion TCP non disponible pour l'envoi de données.");
+            }
+        }
         const perimetre = (data.perimetre.position === 'left') ? '00' : '01';
         const status1 = data.perimetre.status ? '01' : '00';
         let dataToSend = data.type + " - " + data.imei + " - 0" + data.position + " - " + perimetre + " - " + status1;
