@@ -48,21 +48,23 @@ io.on('connection', (socket) => {
             console.log("premier message");
             console.log(data);
             if (tcpClient.writable) {
-                tcpClient.write(dataToSend);
+                tcpClient.write(data);
                 console.log("ok premier connect");
             } else {
                 console.log("Connexion TCP non disponible pour l'envoi de données.");
             }
-        }
-        const perimetre = (data.perimetre.position === 'left') ? '00' : '01';
-        const status1 = data.perimetre.status ? '01' : '00';
-        let dataToSend = data.type + " - " + data.imei + " - 0" + data.position + " - " + perimetre + " - " + status1;
+        }else{
+            const perimetre = (data.perimetre.position === 'left') ? '00' : '01';
+            const status1 = data.perimetre.status ? '01' : '00';
+            let dataToSend = data.type + " - " + data.imei + " - 0" + data.position + " - " + perimetre + " - " + status1;
 
-        if (tcpClient.writable) {
-            tcpClient.write(dataToSend);
-        } else {
-            console.log("Connexion TCP non disponible pour l'envoi de données.");
+            if (tcpClient.writable) {
+                tcpClient.write(dataToSend);
+            } else {
+                console.log("Connexion TCP non disponible pour l'envoi de données.");
+            }
         }
+        
     });
 
     socket.on('join_room', (data) => {
