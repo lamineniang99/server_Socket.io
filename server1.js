@@ -45,8 +45,11 @@ io.on('connection', (socket) => {
 
     socket.on('data', (data) => {
         if (!data.perimetre) {
+            console.log("premier message");
+            console.log(data);
             if (tcpClient.writable) {
                 tcpClient.write(dataToSend);
+                console.log("ok premier connect");
             } else {
                 console.log("Connexion TCP non disponible pour l'envoi de données.");
             }
