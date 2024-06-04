@@ -74,10 +74,11 @@ tcpClient.on('data', (data) => {
         message = JSON.parse(message);
         console.log(message.imei);
         if (message && message.imei) {
+
             let roomName = `${message.imei}`;
-	    let canal = roomName +  "update";
-	    console.log("Canal name" , roomName);
-	    io.emit( canal,  message);
+            let canal = roomName +  "update";
+            console.log("Canal name" , roomName);
+            io.emit( canal,  message);
             io.to(roomName).emit('update', message); // Envoyer les données à tous les clients dans cette room
         }
     } catch (error) {
